@@ -1,6 +1,6 @@
 import requests
 import json
-import gmplot
+import folium
 
 
 api_key = False
@@ -19,8 +19,8 @@ while True:
 	if api_key is not False:
 		params['key'] = api_key
 	req = requests.get(baseurl, params = params)
+	
 	data = req.text
-
 	try:
 		js = json.loads(data)
 	except :
@@ -35,7 +35,12 @@ while True:
 	location = js['results'][0]['formatted_address']
 	print("Location: ",location)
 	print("lat {}, lng {}".format(lat,lng))
-	
-	gmap1 = gmplot.GoogleMapPlotter(lat,lng,13)
-	gmap1.draw( "C:\\Users\\Aakash\\Desktop\\map11.html" )
+	m = folium.Map(
+		location=[lat, lng],
+		zoom_start = 12
+	)
+	tooltip = 'Click me!'
+
+	folium.Marker([lat, lng], popup='<i>Mt. Hood Meadows</i>', tooltip=tooltip).add_to(m)
+	m.save("index.html")
 	break
