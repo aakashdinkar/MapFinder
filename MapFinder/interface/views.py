@@ -67,7 +67,7 @@ def submit(request):
     for arrow in arrows:
         arrow.add_to(dist_map)
 
-    dist_map.save(r'C:\Users\Aakash\Desktop\MapFinder\MapFinder\templates\map.html')
+    dist_map.save('templates/map.html')
 
     dis = distance.find_distance((loc[0][0], loc[0][1]), (loc[1][0], loc[1][1]))
     print("Aerial Distance between %s and %s is %d Km"%(place[0], place[1] ,dis))
