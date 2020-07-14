@@ -18,16 +18,18 @@ def index(request):
     return render(request,'index.html', content)
 
 def submit(request):
-    source = request.POST.get('src'):
+    source = request.POST.get('src')
     destination = request.POST.get('dest')
 
     baseurl = "http://py4e-data.dr-chuck.net/json"
 
     i = 0
     loc, place = [], []
-    while i != 2:
-        i += 1
-        address = input("Enter address: ")
+    places = []
+    places.append(source)
+    places.append(destination)
+    for item in places:
+        address = item
         if len(address) < 1: break
 
         params = dict()
