@@ -12,24 +12,14 @@ from . import getarrow, distance
 latitude = 37.0902
 longitude = -95.7129
 traffic_map = folium.Map(location=[latitude, longitude], zoom_start=5)
-traffic_map.save(r'C:\Users\Aakash\Desktop\MapFinder\MapFinder\templates\index.html')
+# traffic_map.save(r'C:\Users\Aakash\Desktop\MapFinder\MapFinder\templates\index.html')
 def index(request):
-    content = {}
-    content['html'] = '''
-        <form action="submit" method="POST">
-        {% csrf_token %}
-        <div class="col-md-4 col-sm-4"><label for="name">Source:</label></div>
-        <input type="text" placeholder="Source Place" name="src"><br><br>
-        <div class="col-md-4 col-sm-4"><label for="name">Destination:</label></div>
-        <input type="text" placeholder="Destination Place" name="dest"><br><br>
-        <input type="submit" name="Submit">
-    </form>
-    '''
+    content = {'map':traffic_map._repr_html_()}
     return render(request,'index.html', content)
 
 def submit(request):
-    if request.method == 'POST':
-        print("hello")
+    source = request.POST.get('src'):
+    destination = request.POST.get('dest')
 
     baseurl = "http://py4e-data.dr-chuck.net/json"
 

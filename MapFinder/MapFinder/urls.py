@@ -21,5 +21,5 @@ from interface import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     url('^$', views.index),
-    url('map', views.submit)
+    url('submit', views.submit)
 ]
