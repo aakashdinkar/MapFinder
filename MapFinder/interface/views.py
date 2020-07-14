@@ -3,16 +3,16 @@ from django.http import HttpResponse
 import requests
 import json
 import folium
+from folium.features import *
 from collections import namedtuple
 import numpy as np
 import math
 from . import getarrow, distance
 
 
-latitude = 37.0902
-longitude = -95.7129
-traffic_map = folium.Map(location=[latitude, longitude], zoom_start=5)
-# traffic_map.save(r'C:\Users\Aakash\Desktop\MapFinder\MapFinder\templates\index.html')
+latitude = 28.6304
+longitude = 77.2177
+traffic_map = folium.Map(location=[latitude, longitude], zoom_start=15)
 def index(request):
     content = {'map':traffic_map._repr_html_()}
     return render(request,'index.html', content)
@@ -56,9 +56,10 @@ def submit(request):
         print("lat {}, lng {}".format(lat,lng))
 
 
-    dist_map = folium.Map(location=loc[0], zoom_start=12)
+    dist_map = folium.Map(location=loc[0], zoom_start=15)
     folium.Marker(location=loc[0], icon=folium.Icon(color='green') , popup = place[0]).add_to(dist_map)
     folium.Marker(location=loc[1], icon=folium.Icon(color='blue'), popup = place[1]).add_to(dist_map)
+    
 
     folium.PolyLine(locations=[loc[0], loc[1]], color='red').add_to(dist_map)
     arrows = getarrow.getArrows(locations=[loc[0], loc[1]], n_arrows=5)
